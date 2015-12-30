@@ -1,0 +1,23 @@
+#Attaching a system to LDAP and Kerberos Servers
+sudo yum -y install authconfig-gtk sssd krb5-workstation
+#Launch authconfig-gtk (can use authconfig-tui if you don't have a desktop)
+#On the identity and Authentication tab, select LDAP from the User Account Database drop-down, and fill out the LDAP Search Base DN and LDAP Server Fields
+#Search base (dc=example,dc=com), and LDAP Server (classroom.example.com)
+#Ensure the "Use TLS Box" is checked, then click the button to download the CA Certificate.
+#From the Authenication Method Dropdown, select Kerberos password, and file out the Realm, KDCs and Admin Servers fields. 
+#Click apply and test the connection. 
+
+#Install IPA Client on Desktop X
+sudo yum -y install ipa-client --domain=serverX.example.com --no-ntp --mkhomedir
+sudo ipa-client-install
+#Select defaults at prompts; #Username for domain admin is Admin, password is whatever they give you.
+sudo ipa-client-install
+
+#Join system to AD
+yum -y install realmd
+sudo realm discover domain.example.com
+sudo realm join domain.example.com
+#enable the AD accounts to login
+sudo realm permit --realm domain.example.com --all
+#If you want to limit the people who can login, use 
+sudo realm permit --realm domain.example.com DOMAIN\\Itchy DOMAIN\\Scratchy
