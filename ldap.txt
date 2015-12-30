@@ -1,3 +1,4 @@
+#RHCSA
 #Attaching a system to LDAP and Kerberos Servers
 sudo yum -y install authconfig-gtk sssd krb5-workstation
 #Launch authconfig-gtk (can use authconfig-tui if you don't have a desktop)
